@@ -13,7 +13,7 @@ const char* graphics::TITLE = "CaveStory by Goncalo Delgado.";
 
 graphics::graphics()
 {
-	SDL_CreateWindowAndRenderer(gloabals::SCREEN_WIDTH, gloabals::SCREEN_HEIGHT, 0, &this->_window, &this->_renderer);
+	SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0, &this->_window, &this->_renderer);
 	SDL_SetWindowTitle(this->_window, TITLE);
 }
 

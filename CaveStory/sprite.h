@@ -7,7 +7,7 @@ using namespace std;
 
 
 
-/* Sprite class
+/* sprite class
 * Holds all information for individual sprites
 */
 class sprite
@@ -19,10 +19,11 @@ public:
 	virtual void update();
 	void draw(graphics &graphics, int x, int y);
 
-private:
+protected:
 	SDL_Rect _sourceRect;
 	SDL_Texture* _spriteSheet;
 
+private:
 	float _x, _y;
 };
 

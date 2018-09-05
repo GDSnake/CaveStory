@@ -33,6 +33,6 @@ void sprite::update()
 
 void sprite::draw(graphics & graphics, int x, int y)
 {
-	SDL_Rect destinationRectange = { x, y, this->_sourceRect.w * gloabals::SPRITE_SCALE, this->_sourceRect.h * gloabals::SPRITE_SCALE};
+	SDL_Rect destinationRectange = { x, y, this->_sourceRect.w * globals::SPRITE_SCALE, this->_sourceRect.h * globals::SPRITE_SCALE};
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destinationRectange);
 }
