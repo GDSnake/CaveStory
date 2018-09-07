@@ -36,10 +36,7 @@ public:
 	*/
 	void draw(graphics &graphics, int x, int y);
 
-	/*void setupAnimations
-	* A required function the sets up all animations for a sprite
-	*/
-	virtual void setupAnimation();
+	
 
 protected:
 	double _timeToUpdate;
@@ -69,7 +66,12 @@ protected:
 	/*void animationDone
 	* Logic that happens when animation ends
 	*/
-	virtual void animationDone(string currentAnimation);
+	virtual void animationDone(string currentAnimation) = 0;
+
+	/*void setupAnimations
+	* A required function the sets up all animations for a sprite
+	*/
+	virtual void setupAnimations() = 0;
 
 private:
 	map<string, vector<SDL_Rect>> _animations;

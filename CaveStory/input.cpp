@@ -14,14 +14,14 @@ void input::beginNewFrame()
 }
 
 // this gets called when a keys is released
-void input::keyUpEvent(const SDL_Event & event)
+void input::keyUpEvent(const SDL_Event& event)
 {
 	this->_releasedKeys[event.key.keysym.scancode] = true;
 	this->_heldKeys[event.key.keysym.scancode] = false;
 }
 
 // This gets called when as key has been pressed
-void input::keyDownEvent(const SDL_Event & event)
+void input::keyDownEvent(const SDL_Event& event)
 {
 	this->_pressedKeys[event.key.keysym.scancode] = true;
 	this->_heldKeys[event.key.keysym.scancode] = true;

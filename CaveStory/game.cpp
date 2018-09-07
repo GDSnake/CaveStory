@@ -32,9 +32,8 @@ void game::gameLoop()
 	input input;
 	SDL_Event event;
 	
-	this->_player = animatedSprite(graphics, "content/sprites/MyChar.png", 0, 0, 16, 16, 100, 100, 100);
-	this->_player.setupAnimation();
-	this->_player.playAnimation("RunLeft");
+	this->_player = player(graphics,  100, 100);
+	
 
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -47,7 +46,7 @@ void game::gameLoop()
 				}
 			}
 			else if (event.type == SDL_KEYUP) {
-				input.keyDownEvent(event);
+				input.keyUpEvent(event);
 			}
 			else if (event.type == SDL_QUIT) {
 				return;
@@ -55,6 +54,16 @@ void game::gameLoop()
 		}
 		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
 			return;
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
+			this->_player.moveLeft();
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
+			this->_player.moveRight();
+		}
+
+		if (!input.isKeyHeld(SDL_SCANCODE_LEFT) && !input.isKeyHeld(SDL_SCANCODE_RIGHT)) {
+			this->_player.stopMoving();
 		}
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();
@@ -69,7 +78,7 @@ void game::gameLoop()
 void game::draw(graphics &graphics)
 {
 	graphics.clear();
-	this->_player.draw(graphics, 100, 100);
+	this->_player.draw(graphics);
 
 	graphics.flip();
 }
