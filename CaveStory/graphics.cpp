@@ -21,9 +21,10 @@ graphics::graphics()
 graphics::~graphics()
 {
 	SDL_DestroyWindow(this->_window);
+	SDL_DestroyRenderer(this->_renderer);
 }
 
-SDL_Surface * graphics::loadImage(const string &filePath)
+SDL_Surface* graphics::loadImage(const string &filePath)
 {
 	if (this->_spriteSheets.count(filePath) == 0) {
 		this-> _spriteSheets[filePath] = IMG_Load(filePath.c_str());
