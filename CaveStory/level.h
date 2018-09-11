@@ -4,6 +4,7 @@
 
 #include "globals.h"
 #include"tile.h"
+#include "rectangle.h"
 
 
 class graphics; 
@@ -20,6 +21,11 @@ public:
 	~level();
 	void update(int elapsedTime);
 	void draw(graphics &graphics);
+
+	vector<rectangle> checkTileCollision(const rectangle &other);
+
+	const Vector2 getPlayerSpawnPoint() const;
+
 private:
 	string _mapName;
 	Vector2 _spawnPoint;
@@ -31,6 +37,7 @@ private:
 
 	vector<tile> _tileList;
 	vector<Tileset> _tilesets;
+	vector<rectangle> _collisionRects;
 
 
 	/* void loadMap

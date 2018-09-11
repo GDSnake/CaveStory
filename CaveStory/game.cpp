@@ -32,8 +32,9 @@ void game::gameLoop()
 	input input;
 	SDL_Event event;
 	
-	this->_player = player(graphics,  100, 100);
-	this->_level = level("map 1", Vector2(100, 100), graphics);
+	
+	this->_level = level("map 1TEMP", Vector2(100, 100), graphics);
+	this->_player = player(graphics, this->_level.getPlayerSpawnPoint());
 
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -88,4 +89,12 @@ void game::update(float elapsedTime)
 {
 	this->_player.update(elapsedTime);
 	this->_level.update(elapsedTime);
+
+	//Check collisions
+
+	vector<rectangle> others;
+	if ((others = this->_level.checkTileCollision(this->_player.getBoundingBox())).size() > 0) {
+		//Player collided with at least one tile. Handle it
+		this->_player.handeTileCollisions(others);
+	}
 }

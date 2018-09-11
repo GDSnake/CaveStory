@@ -35,9 +35,10 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="rectangle.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="level.h" />
-    <ClInclude Include="player.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tinyxml2.h" />

@@ -9,7 +9,7 @@ class player : public animatedSprite
 {
 public:
 	player();
-	player(graphics &graphics, float x, float y);
+	player(graphics &graphics, Vector2 spawnPoint);
 	void draw(graphics &graphics);
 	void update(float elapsedTime);
 
@@ -31,9 +31,17 @@ public:
 	virtual void animationDone(string currentAnimation);
 	virtual void setupAnimations();
 
+	void handeTileCollisions(vector<rectangle> &others);
+
+	const float getX() const;
+	const float getY() const;
+
 private:
 	float _dx, _dy;
 
 	Direction _facing;
+
+	bool _grounded;
+
 };
 

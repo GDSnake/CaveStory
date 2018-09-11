@@ -3,6 +3,8 @@
 #include <string>
 
 #include "graphics.h"
+#include "rectangle.h"
+#include "globals.h"
 using namespace std;
 
 
@@ -19,9 +21,14 @@ public:
 	virtual void update();
 	void draw(graphics &graphics, int x, int y);
 
+	const rectangle getBoundingBox() const;
+	const sides::Side getCollisionSide(rectangle &other) const;
+
 protected:
 	SDL_Rect _sourceRect;
 	SDL_Texture* _spriteSheet;
+
+	rectangle _boundingBox;
 
 	float _x, _y;
 

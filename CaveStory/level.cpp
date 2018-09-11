@@ -40,6 +40,22 @@ void level::draw(graphics &graphics)
 	}
 }
 
+vector<rectangle> level::checkTileCollision(const rectangle &other)
+{
+	vector<rectangle> others;
+	for (int i = 0; i < this->_collisionRects.size(); i++) {
+		if (this->_collisionRects.at(i).collidesWith(other)) {
+			others.push_back(this->_collisionRects.at(i));
+		}
+	}
+	return others;
+}
+
+const Vector2 level::getPlayerSpawnPoint() const
+{
+	return this->_spawnPoint;
+}
+
 void level::loadMap(string mapName, graphics &graphics)
 {
 	// Parse the .tmx file
@@ -166,6 +182,55 @@ void level::loadMap(string mapName, graphics &graphics)
 			}
 
 			pLayer = pLayer->NextSiblingElement("layer");
+		}
+	}
+	//Parse out the collisions
+	XMLElement* pObjectGroup = mapNode->FirstChildElement("objectgroup");
+	if (pObjectGroup != NULL) {
+		while (pObjectGroup) {
+			const char* name = pObjectGroup->Attribute("name");
+			stringstream ss;
+			ss << name;
+			if (ss.str() == "collisions") {
+				XMLElement* pObject = pObjectGroup->FirstChildElement("object");
+				if (pObject != NULL) {
+					while (pObject) {
+						float x, y, width, height;
+						x = pObject->FloatAttribute("x");
+						y = pObject->FloatAttribute("y");
+						width = pObject->FloatAttribute("width");
+						height = pObject->FloatAttribute("height");
+
+						this->_collisionRects.push_back(rectangle(
+							ceil(x) * globals::SPRITE_SCALE,
+							ceil(y) * globals::SPRITE_SCALE,
+							ceil(width) * globals::SPRITE_SCALE,
+							ceil(height) * globals::SPRITE_SCALE
+						));
+
+						pObject = pObject->NextSiblingElement("object");
+					}
+				}
+			}
+			//Other objectgroups go here with an else if(ss.str() == "whatever")
+			else if (ss.str() == "spawn points") {
+				XMLElement* pObject = pObjectGroup->FirstChildElement("object");
+				if (pObject != NULL) {
+					while (pObject) {
+						float x = pObject->FloatAttribute("x");
+						float y = pObject->FloatAttribute("y");
+						const char* name = pObject->Attribute("name");
+						stringstream ss;
+						ss << name;
+						if (ss.str() == "player")
+							this->_spawnPoint = Vector2(ceil(x) * globals::SPRITE_SCALE, ceil(y) * globals::SPRITE_SCALE);
+						}
+						pObject = pObject->NextSiblingElement("object");
+					}
+					
+			}
+
+			pObjectGroup = pObjectGroup->NextSiblingElement("objectgroup");
 		}
 	}
 }
